@@ -1,6 +1,7 @@
 import pyglet
 import random
 import math
+from . import physicalobject
 from . import resources
 
 
@@ -15,9 +16,11 @@ def asteroids(num_asteroids, player_position, batch=None):
         while distance((asteroid_x, asteroid_y), player_position) < 100:
             asteroid_x = random.randint(0, 800)
             asteroid_y = random.randint(0, 600)
-        new_asteroid = pyglet.sprite.Sprite(img=resources.asteroid_image,
+        new_asteroid = physicalobject.PhysicalObject(img=resources.asteroid_image,
                                             x=asteroid_x, y=asteroid_y, batch=batch)
         new_asteroid.rotation = random.randint(0, 360)
+        new_asteroid.velocity_x = random.random()*40
+        new_asteroid.velocity_y = random.random()*40
         asteroids.append(new_asteroid)
     return asteroids
 
