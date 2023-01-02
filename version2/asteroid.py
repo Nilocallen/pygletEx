@@ -1,5 +1,5 @@
 import pyglet
-from game import resources, load, physicalobject
+from game import resources, load, physicalobject, player
 
 
 game_window = pyglet.window.Window(800, 600)
@@ -9,7 +9,7 @@ main_batch = pyglet.graphics.Batch()
 
 
 #   Sprites     #
-player_ship = physicalobject.PhysicalObject(img=resources.player_image, x=400, y=300, batch=main_batch)
+player_ship = player.Player(x=400, y=300, batch=main_batch)
 asteroids = load.asteroids(3, player_ship.position, main_batch)
 lives = load.player_lives(3, main_batch)
 
@@ -22,6 +22,10 @@ score_label = pyglet.text.Label(text="Score: 0", x=10, y=game_window.height - 20
 
 #       Game Objects        #
 game_objects = [player_ship] + asteroids
+
+
+#       Event handler pushing      #
+game_window.push_handlers(player_ship)
 
 
 def update(dt):
